@@ -117,7 +117,7 @@ public final class IntentIntegrator {
    * See {@link #initiateScan(Activity, CharSequence, CharSequence, CharSequence, CharSequence)} --
    * same, but uses default English labels.
    */
-  public static AlertDialog initiateScan(Activity activity) {
+  public AlertDialog initiateScan(Activity activity) {
     return initiateScan(activity, DEFAULT_TITLE, DEFAULT_MESSAGE, DEFAULT_YES, DEFAULT_NO);
   }
 

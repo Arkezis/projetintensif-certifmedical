@@ -3,5 +3,12 @@
 
     <string name="hello">Hello World, ProjetIntensifCertifMedicalActivity!</string>
     <string name="app_name">ProjetIntensifCertifMedical</string>
-
+    <string name="title">Scan de certificat médical</string>
+    <string name="button">Scannez ! </string>
+    <string name="info1">Vous avez scanné le certificat médical de : </string>
+	<string name="infoBirth">Né le : </string>
+	<string name="validity">Date de validité : </string>
+	<string name="verdict">Verdict : </string>
+	<string name="info2">Merci de vérifier la concordance de ces informations avec le certificat et le patient.</string>
+    
 </resources>
