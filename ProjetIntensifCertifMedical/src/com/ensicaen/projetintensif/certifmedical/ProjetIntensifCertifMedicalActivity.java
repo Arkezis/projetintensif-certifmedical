@@ -22,23 +22,21 @@ import com.ensicaen.projetintensif.certifmedical.qrcode.IntentResult;
 
 public class ProjetIntensifCertifMedicalActivity extends Activity {
 
+	
 	static String QRCodeVersion="1.0b";
-
 
 	TextView tvInfo1 ,tvInfo2;
 	LinearLayout llNomPrénom, llDateNaissance, llDateValidité,llAptitude;
 
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
 		this.findViewById(R.id.launchScan).setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				// Run the BarcodeScanner intent
 				IntentIntegrator integrator = new IntentIntegrator();
 				integrator.initiateScan(ProjetIntensifCertifMedicalActivity.this);
 			}
@@ -52,13 +50,15 @@ public class ProjetIntensifCertifMedicalActivity extends Activity {
 			String textFromQR=null;
 			try{
 				byte[] toDecipherbNormale = Base64.decode(toDecipherb64.getBytes(), Base64.NO_PADDING);
+				
+				// Get the publickey and use it to decode
 				InputStream insPub = getResources().openRawResource(R.raw.publickey) ;
 				PublicKey pub = X509Certificate.getInstance(insPub).getPublicKey();
-
 				Cipher rsaCipher = Cipher.getInstance("RSA/None/NoPadding");
 				rsaCipher.init(Cipher.DECRYPT_MODE, pub);
 				byte[] decrypt = null;
 				decrypt = rsaCipher.doFinal(toDecipherbNormale);
+				
 				textFromQR = new String(decrypt);
 				String[] elemsQRCode = textFromQR.split(";");
 
@@ -79,12 +79,12 @@ public class ProjetIntensifCertifMedicalActivity extends Activity {
 					llNomPrénom.setVisibility(View.VISIBLE);
 					((TextView) this.findViewById(R.id.tvPrénom)).setText(elemsQRCode[1]);
 					((TextView) this.findViewById(R.id.tvNom)).setText(elemsQRCode[2]);
-					llDateValidité = (LinearLayout) this.findViewById(R.id.llDateCertif);
-					llDateValidité.setVisibility(View.VISIBLE);
-					((TextView) this.findViewById(R.id.tvDateValidité)).setText(elemsQRCode[3]);
 					llDateNaissance = (LinearLayout) this.findViewById(R.id.llDateNaissance);
 					llDateNaissance.setVisibility(View.VISIBLE);
-					((TextView) this.findViewById(R.id.tvDateNaissance)).setText(elemsQRCode[4]);
+					((TextView) this.findViewById(R.id.tvDateNaissance)).setText(elemsQRCode[3]);
+					llDateValidité = (LinearLayout) this.findViewById(R.id.llDateCertif);
+					llDateValidité.setVisibility(View.VISIBLE);
+					((TextView) this.findViewById(R.id.tvDateValidité)).setText(elemsQRCode[4]);
 					llAptitude = (LinearLayout) this.findViewById(R.id.llAptitude);
 					llAptitude.setVisibility(View.VISIBLE);
 					((TextView) this.findViewById(R.id.tvAptitude)).setText(elemsQRCode[5]);
