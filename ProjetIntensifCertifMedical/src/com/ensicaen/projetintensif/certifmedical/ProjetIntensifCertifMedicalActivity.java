@@ -7,6 +7,7 @@ import java.security.PublicKey;
 import javax.crypto.Cipher;
 import javax.security.cert.X509Certificate;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -97,8 +98,10 @@ public class ProjetIntensifCertifMedicalActivity extends Activity {
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
-							Toast.makeText(ProjetIntensifCertifMedicalActivity.this,"QR : "+elemsQRCode[6]+" saisi : "+new String(ProjetIntensifCertifMedicalActivity.byteArrayToHexString(md.digest())),Toast.LENGTH_LONG).show();
-							if(new String(ProjetIntensifCertifMedicalActivity.byteArrayToHexString(md.digest())).equals(elemsQRCode[6])){
+							String pouet = new String(byteArrayToHexString(md.digest()));
+							Log.d("DEBUGTAG","pin : "+PINtoSha+" sha1é : "+pouet+" et l'autre "+elemsQRCode[6]);
+							Toast.makeText(ProjetIntensifCertifMedicalActivity.this,"QR : "+elemsQRCode[6]+" saisi : "+pouet,Toast.LENGTH_LONG).show();
+							if(pouet.equals(elemsQRCode[6])){
 								Toast.makeText(ProjetIntensifCertifMedicalActivity.this,"PIN correct ! ", Toast.LENGTH_LONG).show();
 								tvInfo1 = (TextView) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.tvInfo1);
 								tvInfo1.setVisibility(View.VISIBLE);		
@@ -135,7 +138,7 @@ public class ProjetIntensifCertifMedicalActivity extends Activity {
 						} });
 					adb.show();
 
-					
+
 				}
 			}catch(Exception e) {
 				Log.d("DEBUGTAG",e.toString());
@@ -146,14 +149,15 @@ public class ProjetIntensifCertifMedicalActivity extends Activity {
 	}
 
 	public static String byteArrayToHexString(byte[] array) {
-	    StringBuffer hexString = new StringBuffer();
-	    for (byte b : array) {
-	      int intVal = b & 0xff;
-	      if (intVal < 0x10)
-	        hexString.append("0");
-	      hexString.append(Integer.toHexString(intVal));
-	    }
-	    return hexString.toString();    
-	  }
+		StringBuffer hexString = new StringBuffer();
+		for (byte b : array) {
+			int intVal = b & 0xff;
+			if (intVal < 0x10)
+				hexString.append("0");
+			hexString.append(Integer.toHexString(intVal));
+		}
+		return hexString.toString(); 
+	}
+
 
 }
