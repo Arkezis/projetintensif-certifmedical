@@ -7,13 +7,11 @@ import java.security.PublicKey;
 import javax.crypto.Cipher;
 import javax.security.cert.X509Certificate;
 
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;

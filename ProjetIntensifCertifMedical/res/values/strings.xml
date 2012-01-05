@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, ProjetIntensifCertifMedicalActivity!</string>
-    <string name="app_name">ProjetIntensifCertifMedical</string>
+    <string name="app_name">EasyCertif</string>
     <string name="title">EasyCertif \n Scan de certificat médical</string>
     <string name="button">Scannez ! </string>
     <string name="info1">Vous avez scanné le certificat médical de : </string>
