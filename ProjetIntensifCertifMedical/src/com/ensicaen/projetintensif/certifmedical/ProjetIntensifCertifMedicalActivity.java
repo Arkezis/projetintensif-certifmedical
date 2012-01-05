@@ -32,7 +32,7 @@ public class ProjetIntensifCertifMedicalActivity extends Activity {
 	MessageDigest md = null;
 	String[] elemsQRCode;
 	TextView tvInfo1 ,tvInfo2;
-	LinearLayout llNomPrénom, llDateNaissance, llDateValidité,llAptitude;
+	LinearLayout llNomPrenom, llDateNaissance, llDateValidite,llAptitude;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -70,9 +70,9 @@ public class ProjetIntensifCertifMedicalActivity extends Activity {
 
 				// Checking if the QRCode is a good one 
 				if(	elemsQRCode.length!= 7	|| elemsQRCode[0].equals(ProjetIntensifCertifMedicalActivity.QRCodeVersion)==false	){ 
-					Toast.makeText(this, "Le QRCode n'est pas correct. Cela peut être dû à une modification de la clé privée du logiciel, dans ce cas, une nouvelle version de l'application est disponible sur le market.", Toast.LENGTH_LONG).show();
+					Toast.makeText(this, "Le QRCode n'est pas correct. Cela peut être dû à une modification de la cle privee du logiciel, dans ce cas, une nouvelle version de l'application est disponible sur le market.", Toast.LENGTH_LONG).show();
 					((TextView) this.findViewById(R.id.tvInfo1)).setVisibility(View.INVISIBLE);		
-					((LinearLayout) this.findViewById(R.id.llNomPrénom)).setVisibility(View.INVISIBLE);
+					((LinearLayout) this.findViewById(R.id.llNomPrenom)).setVisibility(View.INVISIBLE);
 					((LinearLayout) this.findViewById(R.id.llDateCertif)).setVisibility(View.INVISIBLE);
 					((LinearLayout) this.findViewById(R.id.llDateNaissance)).setVisibility(View.INVISIBLE);
 					((LinearLayout) this.findViewById(R.id.llAptitude)).setVisibility(View.INVISIBLE);
@@ -88,7 +88,7 @@ public class ProjetIntensifCertifMedicalActivity extends Activity {
 					adb.setIcon(android.R.drawable.ic_dialog_alert);
 					adb.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
-							//Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
+							//Lorsque l'on cliquera sur le bouton "OK", on recupère l'EditText correspondant à notre vue personnalisee (cad à alertDialogView)
 							EditText valsaisie = (EditText)alertDialogView.findViewById(R.id.dialogpin_pin);
 							String PINtoSha = valsaisie.getText().toString();
 							try {
@@ -102,16 +102,16 @@ public class ProjetIntensifCertifMedicalActivity extends Activity {
 								Toast.makeText(ProjetIntensifCertifMedicalActivity.this,"PIN correct ! ", Toast.LENGTH_LONG).show();
 								tvInfo1 = (TextView) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.tvInfo1);
 								tvInfo1.setVisibility(View.VISIBLE);		
-								llNomPrénom= (LinearLayout) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.llNomPrénom);
-								llNomPrénom.setVisibility(View.VISIBLE);
-								((TextView) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.tvPrénom)).setText(elemsQRCode[1]);
+								llNomPrenom= (LinearLayout) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.llNomPrenom);
+								llNomPrenom.setVisibility(View.VISIBLE);
+								((TextView) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.tvPrenom)).setText(elemsQRCode[1]);
 								((TextView) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.tvNom)).setText(elemsQRCode[2]);
 								llDateNaissance = (LinearLayout) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.llDateNaissance);
 								llDateNaissance.setVisibility(View.VISIBLE);
 								((TextView) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.tvDateNaissance)).setText(elemsQRCode[3]);
-								llDateValidité = (LinearLayout) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.llDateCertif);
-								llDateValidité.setVisibility(View.VISIBLE);
-								((TextView) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.tvDateValidité)).setText(elemsQRCode[4]);
+								llDateValidite = (LinearLayout) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.llDateCertif);
+								llDateValidite.setVisibility(View.VISIBLE);
+								((TextView) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.tvDateValidite)).setText(elemsQRCode[4]);
 								llAptitude = (LinearLayout) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.llAptitude);
 								llAptitude.setVisibility(View.VISIBLE);
 								((TextView) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.tvAptitude)).setText(elemsQRCode[5]);
@@ -120,7 +120,7 @@ public class ProjetIntensifCertifMedicalActivity extends Activity {
 							}else{
 								Toast.makeText(ProjetIntensifCertifMedicalActivity.this, "mauvais pin !", Toast.LENGTH_LONG).show();
 								((TextView) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.tvInfo1)).setVisibility(View.INVISIBLE);		
-								((LinearLayout) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.llNomPrénom)).setVisibility(View.INVISIBLE);
+								((LinearLayout) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.llNomPrenom)).setVisibility(View.INVISIBLE);
 								((LinearLayout) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.llDateCertif)).setVisibility(View.INVISIBLE);
 								((LinearLayout) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.llDateNaissance)).setVisibility(View.INVISIBLE);
 								((LinearLayout) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.llAptitude)).setVisibility(View.INVISIBLE);

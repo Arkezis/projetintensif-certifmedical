@@ -24,7 +24,7 @@
         />
 
     <LinearLayout
-        android:id="@+id/llNomPrénom"
+        android:id="@+id/llNomPrenom"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -38,7 +38,7 @@
             android:text=""/>
 
         <TextView
-            android:id="@+id/tvPrénom"
+            android:id="@+id/tvPrenom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="" />
@@ -76,7 +76,7 @@
             android:text="@string/validity" />
 
         <TextView
-            android:id="@+id/tvDateValidité"
+            android:id="@+id/tvDateValidite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="" />
