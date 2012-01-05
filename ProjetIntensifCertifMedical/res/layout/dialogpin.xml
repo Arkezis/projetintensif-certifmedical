@@ -23,17 +23,16 @@
 			android:gravity="center"
 			android:minLines="3"
 			android:layout_gravity="center" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:text="test" />
+			android:layout_height="wrap_content" android:text="Saisissez le code PIN du patient" />
 			
-		
-		
 	</LinearLayout>
 
 	<EditText
 	    android:id="@+id/dialogpin_pin"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:inputType="textPassword"
+	    android:inputType="number"
+	    android:password="true"
 	    android:singleLine="true" android:maxLength="4" android:numeric="decimal" >
 		
 	    <requestFocus />

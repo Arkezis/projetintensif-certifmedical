@@ -13,6 +13,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,7 +28,6 @@ import com.ensicaen.projetintensif.certifmedical.qrcode.IntentIntegrator;
 import com.ensicaen.projetintensif.certifmedical.qrcode.IntentResult;
 
 public class ProjetIntensifCertifMedicalActivity extends Activity {
-
 
 	static String QRCodeVersion="1.0b";
 	MessageDigest md = null;
@@ -50,6 +50,9 @@ public class ProjetIntensifCertifMedicalActivity extends Activity {
 		});
 	}
 
+	/**
+	 *  We come back from the BarcodeScanner activity
+	 */
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
 		if (scanResult != null) {
@@ -78,30 +81,27 @@ public class ProjetIntensifCertifMedicalActivity extends Activity {
 					((LinearLayout) this.findViewById(R.id.llDateNaissance)).setVisibility(View.INVISIBLE);
 					((LinearLayout) this.findViewById(R.id.llAptitude)).setVisibility(View.INVISIBLE);
 					((TextView) this.findViewById(R.id.tvInfo2)).setVisibility(View.INVISIBLE);
-				}else{
-					// Checking the PINCODE before showing informations
+				}else{	// Checking the PINCODE before showing informations
+
+					/* Building the AlertDialog */
 					LayoutInflater factory = LayoutInflater.from(this);
 					final View alertDialogView = factory.inflate(R.layout.dialogpin, null);
-
 					AlertDialog.Builder adb = new AlertDialog.Builder(this);
 					adb.setView(alertDialogView);
 					adb.setTitle("Saisie du PIN du patient");
 					adb.setIcon(android.R.drawable.ic_dialog_alert);
 					adb.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
-							//Lorsque l'on cliquera sur le bouton "OK", on recupère l'EditText correspondant à notre vue personnalisee (cad à alertDialogView)
 							EditText valsaisie = (EditText)alertDialogView.findViewById(R.id.dialogpin_pin);
 							String PINtoSha = valsaisie.getText().toString();
 							try {
 								md = MessageDigest.getInstance("SHA-1");
 								md.update(PINtoSha.getBytes("UTF-8"));
 							} catch (Exception e) {
-								e.printStackTrace();
+								Log.d("DEBUGTAG",e.getLocalizedMessage());
 							}
-							String pouet = new String(byteArrayToHexString(md.digest()));
-							Log.d("DEBUGTAG","pin : "+PINtoSha+" sha1é : "+pouet+" et l'autre "+elemsQRCode[6]);
-							Toast.makeText(ProjetIntensifCertifMedicalActivity.this,"QR : "+elemsQRCode[6]+" saisi : "+pouet,Toast.LENGTH_LONG).show();
-							if(pouet.equals(elemsQRCode[6])){
+							String PINHashed = new String(byteArrayToHexString(md.digest()));
+							if(PINHashed.equals(elemsQRCode[6])){
 								Toast.makeText(ProjetIntensifCertifMedicalActivity.this,"PIN correct ! ", Toast.LENGTH_LONG).show();
 								tvInfo1 = (TextView) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.tvInfo1);
 								tvInfo1.setVisibility(View.VISIBLE);		
@@ -120,7 +120,7 @@ public class ProjetIntensifCertifMedicalActivity extends Activity {
 								((TextView) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.tvAptitude)).setText(elemsQRCode[5]);
 								tvInfo2 = (TextView) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.tvInfo2);
 								tvInfo2.setVisibility(View.VISIBLE);		
-							}else{
+							}else{	// The PIN is not the good one
 								Toast.makeText(ProjetIntensifCertifMedicalActivity.this, "mauvais pin !", Toast.LENGTH_LONG).show();
 								((TextView) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.tvInfo1)).setVisibility(View.INVISIBLE);		
 								((LinearLayout) ProjetIntensifCertifMedicalActivity.this.findViewById(R.id.llNomPrenom)).setVisibility(View.INVISIBLE);
@@ -133,21 +133,23 @@ public class ProjetIntensifCertifMedicalActivity extends Activity {
 
 					adb.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
-							//Lorsque l'on cliquera sur annuler on quittera l'application
-							//finish();
+							// Nothing to do, automatic way
 						} });
 					adb.show();
-
-
 				}
 			}catch(Exception e) {
-				Log.d("DEBUGTAG",e.toString());
+				Toast.makeText(this, "Problème lors de la lecture du QRCode"	, Toast.LENGTH_LONG).show();	
 			}
 		}else{
 			Toast.makeText(this, "Problème lors de la lecture du QRCode"	, Toast.LENGTH_LONG).show();	
 		}
 	}
 
+	/**
+	 * Transform a byte[] to a String (hex)
+	 * @param array The byte[] 
+	 * @return a String in hex
+	 */
 	public static String byteArrayToHexString(byte[] array) {
 		StringBuffer hexString = new StringBuffer();
 		for (byte b : array) {
